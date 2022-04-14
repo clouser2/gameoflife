@@ -7,14 +7,24 @@ class GameOfLife():
         # Board is dict(x, list of ys)
         # Builds board from input
         board = {}
+        min_x, min_y = None, None
+        max_x, max_y = None, None
         for raw_cord in board_input.split(' '):
             raw_x, raw_y = raw_cord.split(',')
             x, y = int(raw_x), int(raw_y)
+            if min_x is None or min_x > x:
+                min_x = x
+            if min_y is None or min_y > y:
+                min_y = y
+            if max_x is None or max_x < x:
+                max_x = x
+            if max_y is None or max_y < y:
+                max_y = y
             if x not in board:
                 board[x] = []
             board[x].append(y)
 
-        # Apply rules to board
+        # Apply rules 1 and 3 to board
         next_board = copy.deepcopy(board)
         for x in board.keys():
             for y in board[x]:
@@ -31,7 +41,8 @@ class GameOfLife():
             for y in next_board[x]:
                 output_pairs.append((x, y))
         output_pairs = sorted(output_pairs)
-        print(" ".join(output_strs))
+
+        print(" ".join([f'{x},{y}' for (x,y) in output_pairs]))
 
 
     def countNumLiveNeighbors(self, board, x, y):

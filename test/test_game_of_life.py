@@ -34,4 +34,18 @@ class GameOfLifeTest(unittest.TestCase):
         fake_stdout.close()
 
         # Should all die because they each only have 1 neighbor.
-        self.assertEqual(output, "-3,-5 -5,-5 -4,-6 -4,-4\n")
+        self.assertEqual(output, "-5,-5 -4,-6 -4,-4 -3,-5\n")
+
+    def test_regenerates(self):
+        # Test rule 4. Any dead cell with exactly three live neighbours becomes
+        # a live cell, as if by reproduction
+        game = GameOfLife()
+        fake_stdout = io.StringIO()
+
+        with contextlib.redirect_stdout(fake_stdout):
+            game.run("-3,-5 -4,-4 -5,-5")
+
+        output = fake_stdout.getvalue()
+        fake_stdout.close()
+
+        self.assertEqual(output, "-4,-5 -4,-4\n")
