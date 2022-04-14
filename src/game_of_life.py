@@ -19,18 +19,18 @@ class GameOfLife():
         for x in board.keys():
             for y in board[x]:
                 num_live_neighbors = self.countNumLiveNeighbors(board, x, y)
-                if num_live_neighbors < 2:
+                if num_live_neighbors < 2 or num_live_neighbors > 3:
                     # Remove (x,y) from next_board
                     next_board[x].remove(y)
                     if not next_board[x]:
                         next_board.pop(x)
 
         # Print next_board
-        output_strs = []
+        output_pairs = []
         for x in next_board.keys():
             for y in next_board[x]:
-                output_strs.append(f'{x},{y}')
-
+                output_pairs.append((x, y))
+        output_pairs = sorted(output_pairs)
         print(" ".join(output_strs))
 
 
