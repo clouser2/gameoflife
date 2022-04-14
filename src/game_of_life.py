@@ -26,17 +26,26 @@ class GameOfLife():
                         next_board.pop(x)
 
         # Print next_board
-        output_str = ""
-        for x in board.keys():
-            for y in board[x]:
-                output_str += x + "," + y + " "
+        output_strs = []
+        for x in next_board.keys():
+            for y in next_board[x]:
+                output_strs.append(f'{x},{y}')
+
+        print(" ".join(output_strs))
 
 
     def countNumLiveNeighbors(self, board, x, y):
         # Count up the number of live neighbors for given (x,y)
-                count = 0
+        count = 0
 
-                fo[-1,0,1]
+        for x_offset in [-1,0,1]:
+            for y_offset in [-1,0,1]:
+                if x_offset == 0 and y_offset == 0:
+                    continue
+                new_x = x + x_offset
+                new_y = y + y_offset
+                if new_x in board and new_y in board[new_x]:
+                    count += 1
         return count
 
 if __name__ == "__main__":

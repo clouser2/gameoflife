@@ -19,4 +19,4 @@ class GameOfLifeTest(unittest.TestCase):
         fake_stdout.close()
 
         # Should all die because they each only have 1 neighbor.
-        self.assertEqual(output, "-4,-5")
+        self.assertEqual(output, "-4,-5\n")
